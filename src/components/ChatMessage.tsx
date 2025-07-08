@@ -126,13 +126,13 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, autoPlay }) => {
     return (
       <div className="flex justify-end fade-in-up">
         <div 
-          className="max-w-xs sm:max-w-md lg:max-w-lg px-4 py-3 rounded-2xl rounded-br-sm shadow-lg transition-all duration-300"
+          className="max-w-xs sm:max-w-md lg:max-w-lg px-3 sm:px-4 py-2 sm:py-3 rounded-xl sm:rounded-2xl rounded-br-sm shadow-lg transition-all duration-300"
           style={{
-            background: `linear-gradient(135deg, var(--accent-secondary), var(--accent-primary))`,
+            backgroundColor: 'var(--accent-primary)',
             color: 'white'
           }}
         >
-          <p className="text-sm sm:text-base break-words">{message.content}</p>
+          <p className="text-xs sm:text-sm lg:text-base break-words">{message.content}</p>
         </div>
       </div>
     );
@@ -140,9 +140,9 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, autoPlay }) => {
 
   return (
     <div className="flex justify-start fade-in-up">
-      <div className="max-w-xs sm:max-w-md lg:max-w-lg">
+      <div className="max-w-xs sm:max-w-md lg:max-w-lg xl:max-w-xl">
         <div 
-          className="px-4 py-3 rounded-2xl rounded-bl-sm shadow-lg border transition-all duration-300"
+          className="px-3 sm:px-4 py-2 sm:py-3 rounded-xl sm:rounded-2xl rounded-bl-sm shadow-lg border transition-all duration-300"
           style={{
             backgroundColor: 'var(--bg-secondary)',
             borderColor: 'var(--border-color)',
@@ -152,15 +152,15 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, autoPlay }) => {
           {message.isLoading ? (
             <div className="flex items-center gap-2" style={{ color: 'var(--accent-primary)' }}>
               <div 
-                className="animate-spin w-4 h-4 border-2 border-t-transparent rounded-full"
+                className="animate-spin w-3 h-3 sm:w-4 sm:h-4 border-2 border-t-transparent rounded-full"
                 style={{ borderColor: 'var(--accent-primary)' }}
               ></div>
-              <span className="text-sm">Thinking...</span>
+              <span className="text-xs sm:text-sm">Thinking...</span>
             </div>
           ) : (
             <>
               <p 
-                className="text-sm sm:text-base leading-relaxed break-words"
+                className="text-xs sm:text-sm lg:text-base leading-relaxed break-words"
                 style={{ color: 'var(--text-primary)' }}
               >
                 {message.content}
@@ -168,14 +168,14 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, autoPlay }) => {
               
               {message.audioUrl && (
                 <div 
-                  className="mt-3 pt-3 border-t"
+                  className="mt-2 sm:mt-3 pt-2 sm:pt-3 border-t"
                   style={{ borderColor: 'var(--border-color)' }}
                 >
                   <button
                     type="button"
                     onClick={handlePlayAudio}
                     disabled={isLoading}
-                    className="flex items-center gap-2 px-3 py-2 text-sm rounded-lg transition-all duration-200 hover:scale-105 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1 sm:py-2 text-xs sm:text-sm rounded-lg transition-all duration-200 hover:scale-105 disabled:cursor-not-allowed disabled:opacity-50"
                     style={{
                       backgroundColor: hasError ? '#dc2626' : 'var(--accent-primary)',
                       color: 'white'
@@ -183,22 +183,22 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, autoPlay }) => {
                   >
                     {isLoading ? (
                       <>
-                        <div className="animate-spin w-4 h-4 border-2 border-t-transparent rounded-full border-white"></div>
+                        <div className="animate-spin w-3 h-3 sm:w-4 sm:h-4 border-2 border-t-transparent rounded-full border-white"></div>
                         <span>Loading...</span>
                       </>
                     ) : hasError ? (
                       <>
-                        <VolumeX size={16} />
+                        <VolumeX size={14} className="sm:w-4 sm:h-4" />
                         <span>Audio Error</span>
                       </>
                     ) : isPlaying ? (
                       <>
-                        <Pause size={16} />
+                        <Pause size={14} className="sm:w-4 sm:h-4" />
                         <span>Pause</span>
                       </>
                     ) : (
                       <>
-                        <Play size={16} />
+                        <Play size={14} className="sm:w-4 sm:h-4" />
                         <span>Play Audio</span>
                       </>
                     )}

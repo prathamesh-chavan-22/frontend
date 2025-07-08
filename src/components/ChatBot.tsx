@@ -163,7 +163,7 @@ const ChatBot: React.FC<ChatBotProps> = ({ theme, onThemeToggle }) => {
   const inputsDisabled = isProcessing || isRecording;
 
   return (
-    <div className="min-h-screen flex flex-col transition-all duration-500 relative overflow-hidden" 
+    <div className="min-h-screen max-h-screen flex flex-col transition-all duration-500 relative overflow-hidden" 
          style={{ backgroundColor: 'var(--bg-primary)' }}>
       
       {/* Magical Floating Elements */}
@@ -201,14 +201,14 @@ const ChatBot: React.FC<ChatBotProps> = ({ theme, onThemeToggle }) => {
 
       {/* Enhanced Header */}
       <header 
-        className="relative z-40 p-4 sm:p-6 shadow-2xl border-b transition-all duration-500 backdrop-blur-sm"
+        className="relative z-40 p-3 sm:p-4 lg:p-6 shadow-2xl border-b transition-all duration-500 backdrop-blur-sm flex-shrink-0"
         style={{
           background: `linear-gradient(135deg, var(--bg-secondary), rgba(255,255,255,0.1))`,
           borderColor: 'var(--border-color)',
           boxShadow: '0 4px 20px var(--shadow-color)'
         }}
       >
-        <div className="max-w-6xl mx-auto relative">
+        <div className="max-w-7xl mx-auto relative">
           {/* Enhanced Controls Row */}
           <div className="absolute top-0 right-0 flex items-center gap-3">
             <LanguageSelector disabled={isProcessing} />
@@ -216,18 +216,18 @@ const ChatBot: React.FC<ChatBotProps> = ({ theme, onThemeToggle }) => {
           </div>
 
           {/* Magical Header Content */}
-          <div className="text-center pr-32 sm:pr-40">
+          <div className="text-center pr-24 sm:pr-32 lg:pr-40">
             <div className="flex items-center justify-center gap-3 sm:gap-4 mb-2 sm:mb-3">
               <div className="relative">
                 <MapPin 
-                  size={28} 
-                  className="pulse-animation sm:w-10 sm:h-10 drop-shadow-lg" 
+                  size={24} 
+                  className="pulse-animation sm:w-8 sm:h-8 lg:w-10 lg:h-10 drop-shadow-lg" 
                   style={{ color: 'var(--accent-primary)' }}
                 />
                 <Sparkles size={12} className="absolute -top-1 -right-1 text-yellow-400 animate-pulse" />
               </div>
               <h1 
-                className="text-3xl sm:text-5xl lg:text-6xl font-bold"
+                className="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold"
                 style={{ 
                   fontFamily: 'Samarkan, serif',
                   textShadow: '3px 3px 6px var(--shadow-color)',
@@ -238,15 +238,15 @@ const ChatBot: React.FC<ChatBotProps> = ({ theme, onThemeToggle }) => {
               </h1>
               <div className="relative">
                 <MapPin 
-                  size={28} 
-                  className="pulse-animation sm:w-10 sm:h-10 drop-shadow-lg" 
+                  size={24} 
+                  className="pulse-animation sm:w-8 sm:h-8 lg:w-10 lg:h-10 drop-shadow-lg" 
                   style={{ color: 'var(--accent-primary)' }}
                 />
                 <Star size={12} className="absolute -top-1 -left-1 text-blue-400 animate-pulse" />
               </div>
             </div>
             <p 
-              className="text-base sm:text-xl font-semibold transition-colors duration-300 flex items-center justify-center gap-2"
+              className="text-sm sm:text-lg lg:text-xl font-semibold transition-colors duration-300 flex items-center justify-center gap-2"
               style={{ color: 'var(--text-secondary)' }}
             >
               <Zap size={16} className="animate-pulse" />
@@ -258,41 +258,40 @@ const ChatBot: React.FC<ChatBotProps> = ({ theme, onThemeToggle }) => {
       </header>
 
       {/* Main Content Container */}
-      <main className="flex-1 flex flex-col p-3 sm:p-4 lg:p-6 pb-0">
-        <div className="w-full max-w-5xl mx-auto flex-1 flex flex-col space-y-4 sm:space-y-6">
+      <main className="flex-1 flex flex-col p-2 sm:p-3 lg:p-4 pb-0 overflow-hidden">
+        <div className="w-full max-w-6xl mx-auto flex-1 flex flex-col space-y-3 sm:space-y-4 lg:space-y-6 min-h-0">
           
           {/* Enhanced About Section */}
-          <div className="w-full hidden sm:block">
+          <div className="w-full hidden lg:block flex-shrink-0">
             <AboutSection />
           </div>
 
           {/* Enhanced Chat Container */}
           <div 
-            className="rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden transition-all duration-500 backdrop-blur-sm"
+            className="flex-1 rounded-xl sm:rounded-2xl lg:rounded-3xl shadow-2xl overflow-hidden transition-all duration-500 backdrop-blur-sm min-h-0"
             style={{
               background: `linear-gradient(135deg, var(--bg-secondary), rgba(255,255,255,0.05))`,
               border: '2px solid var(--border-color)',
-              boxShadow: '0 12px 40px var(--shadow-color)',
-              height: '500px'
+              boxShadow: '0 8px 32px var(--shadow-color)'
             }}
           >
             {/* Chat Messages */}
             <div 
               ref={chatBoxRef}
-              className="h-full overflow-y-auto p-4 sm:p-6 space-y-4 sm:space-y-5 custom-scrollbar scroll-smooth"
+              className="h-full overflow-y-auto p-3 sm:p-4 lg:p-6 space-y-3 sm:space-y-4 lg:space-y-5 custom-scrollbar scroll-smooth"
               style={{
                 background: `linear-gradient(to bottom, var(--bg-secondary), var(--bg-primary))`,
-                paddingBottom: '1.5rem'
+                paddingBottom: '1rem'
               }}
             >
               {messages.length === 0 ? (
                 <div className={`flex items-center justify-center h-full ${welcomeShown ? 'fade-in-up' : 'opacity-0'}`}>
                   <div className="text-center px-4">
-                    <div className="text-5xl sm:text-7xl mb-4 sm:mb-6">🏛️</div>
+                    <div className="text-4xl sm:text-5xl lg:text-7xl mb-3 sm:mb-4 lg:mb-6">🏛️</div>
                     <div className="flex items-center justify-center gap-2 mb-3">
                       <Star size={20} className="text-yellow-400 animate-pulse" />
                       <p 
-                        className="text-xl sm:text-2xl font-bold"
+                        className="text-lg sm:text-xl lg:text-2xl font-bold"
                         style={{ color: 'var(--accent-primary)' }}
                       >
                         Namaste! Welcome to Rahi.ai
@@ -300,7 +299,7 @@ const ChatBot: React.FC<ChatBotProps> = ({ theme, onThemeToggle }) => {
                       <Star size={20} className="text-yellow-400 animate-pulse" />
                     </div>
                     <p 
-                      className="text-base sm:text-lg flex items-center justify-center gap-2"
+                      className="text-sm sm:text-base lg:text-lg flex items-center justify-center gap-2"
                       style={{ color: 'var(--text-secondary)' }}
                     >
                       <Sparkles size={16} className="animate-pulse" />
@@ -325,16 +324,16 @@ const ChatBot: React.FC<ChatBotProps> = ({ theme, onThemeToggle }) => {
 
       {/* Enhanced Fixed Input Controls */}
       <div 
-        className="sticky bottom-0 left-0 right-0 z-50 p-4 sm:p-5 transition-all duration-500 border-t backdrop-blur-md"
+        className="sticky bottom-0 left-0 right-0 z-50 p-3 sm:p-4 lg:p-5 transition-all duration-500 border-t backdrop-blur-md flex-shrink-0"
         style={{
           background: `linear-gradient(135deg, var(--bg-secondary), rgba(255,255,255,0.1))`,
           borderColor: 'var(--border-color)',
           boxShadow: '0 -6px 20px var(--shadow-color)'
         }}
       >
-        <div className="max-w-5xl mx-auto space-y-4">
+        <div className="max-w-6xl mx-auto space-y-3 sm:space-y-4">
           {/* Main Input Row */}
-          <div className="flex items-center gap-3 sm:gap-4">
+          <div className="flex items-center gap-2 sm:gap-3 lg:gap-4">
             <MessageInput 
               onSendMessage={handleSendMessage} 
               disabled={inputsDisabled}
@@ -348,13 +347,13 @@ const ChatBot: React.FC<ChatBotProps> = ({ theme, onThemeToggle }) => {
           </div>
           
           {/* Enhanced Controls Row */}
-          <div className="flex items-center justify-center gap-6 text-sm sm:text-base">
+          <div className="flex items-center justify-center gap-4 sm:gap-6 text-xs sm:text-sm lg:text-base">
             {/* Enhanced Auto-play toggle */}
             <button
               type="button"
               onClick={handleAutoPlayToggle}
               disabled={isProcessing}
-              className="flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-3 rounded-full transition-all duration-300 hover:scale-105 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 backdrop-blur-sm"
+              className="flex items-center gap-1 sm:gap-2 lg:gap-3 px-3 sm:px-4 lg:px-6 py-2 sm:py-3 rounded-full transition-all duration-300 hover:scale-105 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 backdrop-blur-sm"
               style={{
                 background: autoPlay 
                   ? `linear-gradient(135deg, var(--accent-primary), var(--accent-secondary))` 
@@ -365,24 +364,24 @@ const ChatBot: React.FC<ChatBotProps> = ({ theme, onThemeToggle }) => {
               }}
             >
               <span className="text-lg">{autoPlay ? '🔊' : '🔇'}</span>
-              <span className="hidden sm:inline font-medium">Auto-play responses</span>
-              <span className="sm:hidden font-medium">Auto-play</span>
+              <span className="hidden lg:inline font-medium">Auto-play responses</span>
+              <span className="lg:hidden font-medium">Auto-play</span>
               {autoPlay && <Sparkles size={16} className="animate-pulse" />}
             </button>
             
             {/* Enhanced Processing indicator */}
             {isProcessing && (
-              <div className="flex items-center gap-2 sm:gap-3 px-4 py-2 rounded-full backdrop-blur-sm" 
+              <div className="flex items-center gap-1 sm:gap-2 lg:gap-3 px-3 sm:px-4 py-2 rounded-full backdrop-blur-sm" 
                    style={{ 
                      backgroundColor: 'rgba(255,255,255,0.1)',
                      border: '1px solid var(--accent-primary)',
                      color: 'var(--accent-primary)' 
                    }}>
                 <div 
-                  className="animate-spin w-4 h-4 sm:w-5 sm:h-5 border-2 border-t-transparent rounded-full"
+                  className="animate-spin w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5 border-2 border-t-transparent rounded-full"
                   style={{ borderColor: 'var(--accent-primary)' }}
                 ></div>
-                <span className="text-sm sm:text-base font-medium">Processing magic...</span>
+                <span className="text-xs sm:text-sm lg:text-base font-medium">Processing magic...</span>
                 <Zap size={16} className="animate-pulse" />
               </div>
             )}
@@ -391,7 +390,7 @@ const ChatBot: React.FC<ChatBotProps> = ({ theme, onThemeToggle }) => {
       </div>
 
       {/* Enhanced Footer */}
-      <div className="hidden sm:flex items-center justify-center text-sm py-3 gap-2" style={{ color: 'var(--text-secondary)' }}>
+      <div className="hidden lg:flex items-center justify-center text-xs lg:text-sm py-2 lg:py-3 gap-2 flex-shrink-0" style={{ color: 'var(--text-secondary)' }}>
         <Star size={16} className="text-yellow-400 animate-pulse" />
         <span>Powered by AI Magic • Experience the wonders of Incredible India</span>
         <span className="text-xl">🌟</span>
