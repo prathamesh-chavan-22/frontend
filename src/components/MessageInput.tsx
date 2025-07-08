@@ -35,6 +35,7 @@ const MessageInput: React.FC<MessageInputProps> = ({ onSendMessage, disabled = f
           onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder={disabled ? "Processing magic..." : "Ask about India's wonders..."}
+          placeholder={disabled ? "Processing magic..." : "Ask about Maharashtra's wonders..."}
           disabled={disabled}
           className="w-full px-3 sm:px-4 lg:px-6 py-2 sm:py-3 lg:py-4 text-xs sm:text-sm lg:text-base rounded-lg sm:rounded-xl lg:rounded-2xl focus:outline-none focus:ring-2 sm:focus:ring-3 transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50 backdrop-blur-sm"
           style={{

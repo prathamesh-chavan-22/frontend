@@ -76,8 +76,59 @@
   }
 }
 
+/* Enhanced message bubble animations */
+@keyframes messageSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes typingDots {
+  0%, 60%, 100% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%) skewX(-12deg);
+  }
+  100% {
+    transform: translateX(200%) skewX(-12deg);
+  }
+}
+
+@keyframes messageGlow {
+  0%, 100% {
+    box-shadow: 0 2px 8px var(--shadow-color);
+  }
+  50% {
+    box-shadow: 0 4px 16px var(--shadow-color), 0 0 20px rgba(230, 81, 0, 0.2);
+  }
+}
+
 .fade-in-up {
-  animation: fadeInUp 1s ease-out;
+  animation: messageSlideIn 0.6s ease-out;
+}
+
+.animate-typing-dots {
+  animation: typingDots 1.4s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+.animate-message-glow {
+  animation: messageGlow 3s ease-in-out infinite;
 }
 
 .pulse-animation {
@@ -104,6 +155,119 @@
   animation: spin 3s linear infinite;
 }
 
+/* Enhanced chat message styling */
+.chat-message {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  contain: layout style paint;
+}
+
+.chat-message:hover {
+  transform: translateY(-1px);
+}
+
+/* User message specific styling */
+.user-message {
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  position: relative;
+  overflow: hidden;
+}
+
+.user-message::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s ease;
+}
+
+.user-message:hover::before {
+  left: 100%;
+}
+
+/* Bot message specific styling */
+.bot-message {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  position: relative;
+  overflow: hidden;
+}
+
+.bot-message::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(100, 181, 246, 0.05), rgba(129, 199, 132, 0.05));
+  pointer-events: none;
+}
+
+/* Typing indicator styling */
+.typing-indicator {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.typing-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--accent-primary);
+  animation: typingDots 1.4s ease-in-out infinite;
+}
+
+.typing-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+/* Timestamp styling */
+.message-timestamp {
+  font-size: 0.75rem;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.chat-message:hover .message-timestamp {
+  opacity: 0.9;
+}
+
+/* Audio button enhancements */
+.audio-button {
+  background: linear-gradient(135deg, var(--accent-tertiary), #4ade80);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.audio-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.audio-button:hover::before {
+  left: 100%;
+}
+
+.audio-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+}
+
 /* Enhanced theme variables with magical touches */
 :root {
   --bg-primary: #fff8e1;
@@ -127,6 +291,44 @@
   --accent-tertiary: #81c784;
   --border-color: #424242;
   --shadow-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Enhanced responsive chat layout */
+@media (max-width: 640px) {
+  .chat-message {
+    margin: 0.5rem 0;
+  }
+  
+  .user-message,
+  .bot-message {
+    max-width: 85%;
+  }
+  
+  .message-timestamp {
+    font-size: 0.7rem;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .chat-message {
+    margin: 0.75rem 0;
+  }
+  
+  .user-message,
+  .bot-message {
+    max-width: 75%;
+  }
+}
+
+@media (min-width: 1025px) {
+  .chat-message {
+    margin: 1rem 0;
+  }
+  
+  .user-message,
+  .bot-message {
+    max-width: 65%;
+  }
 }
 
 /* Enhanced custom scrollbar with magical touches */

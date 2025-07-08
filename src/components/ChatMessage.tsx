@@ -20,6 +20,12 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, autoPlay }) => {
   const [hasError, setHasError] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
+  // Get current timestamp
+  const getTimestamp = () => {
+    const now = new Date();
+    return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  };
+
   useEffect(() => {
     // Auto-play logic for bot messages with audio
     if (message.audioUrl && autoPlay && message.sender === 'bot' && !message.isLoading) {
@@ -125,14 +131,30 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, autoPlay }) => {
   if (message.sender === 'user') {
     return (
       <div className="flex justify-end fade-in-up">
-        <div 
-          className="max-w-xs sm:max-w-md lg:max-w-lg px-3 sm:px-4 py-2 sm:py-3 rounded-xl sm:rounded-2xl rounded-br-sm shadow-lg transition-all duration-300"
-          style={{
-            backgroundColor: 'var(--accent-primary)',
-            color: 'white'
-          }}
-        >
-          <p className="text-xs sm:text-sm lg:text-base break-words">{message.content}</p>
+        <div className="max-w-xs sm:max-w-md lg:max-w-lg">
+          <div 
+            className="px-3 sm:px-4 py-2 sm:py-3 rounded-xl sm:rounded-2xl rounded-br-sm shadow-lg transition-all duration-300 relative overflow-hidden"
+            style={{
+              background: `linear-gradient(135deg, var(--accent-primary), var(--accent-secondary))`,
+              color: 'white'
+            }}
+          >
+            {/* Magical shimmer effect */}
+            <div className="absolute inset-0 opacity-20">
+              <div 
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent transform -skew-x-12 animate-pulse"
+                style={{ animationDuration: '3s' }}
+              />
+            </div>
+            
+            <div className="relative z-10">
+              <p className="text-xs sm:text-sm lg:text-base break-words leading-relaxed">{message.content}</p>
+              <div className="flex items-center justify-end gap-1 mt-1 opacity-75">
+                <span className="text-xs">{getTimestamp()}</span>
+                <span className="text-xs">✓</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -142,7 +164,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, autoPlay }) => {
     <div className="flex justify-start fade-in-up">
       <div className="max-w-xs sm:max-w-md lg:max-w-lg xl:max-w-xl">
         <div 
-          className="px-3 sm:px-4 py-2 sm:py-3 rounded-xl sm:rounded-2xl rounded-bl-sm shadow-lg border transition-all duration-300"
+          className="px-3 sm:px-4 py-2 sm:py-3 rounded-xl sm:rounded-2xl rounded-bl-sm shadow-lg border transition-all duration-300 relative overflow-hidden"
           style={{
             backgroundColor: 'var(--bg-secondary)',
             borderColor: 'var(--border-color)',
@@ -150,34 +172,64 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, autoPlay }) => {
           }}
         >
           {message.isLoading ? (
+            <>
+              {/* Typing indicator animation */}
+              <div className="absolute inset-0 opacity-10">
+                <div className="animate-pulse bg-gradient-to-r from-transparent via-blue-400 to-transparent h-full" />
+              </div>
+              
+              <div className="relative z-10">
             <div className="flex items-center gap-2" style={{ color: 'var(--accent-primary)' }}>
               <div 
                 className="animate-spin w-3 h-3 sm:w-4 sm:h-4 border-2 border-t-transparent rounded-full"
                 style={{ borderColor: 'var(--accent-primary)' }}
               ></div>
-              <span className="text-xs sm:text-sm">Thinking...</span>
+                <span className="text-xs sm:text-sm">Thinking</span>
+                <div className="flex gap-1">
+                  <div className="w-1 h-1 bg-current rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                  <div className="w-1 h-1 bg-current rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                  <div className="w-1 h-1 bg-current rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                </div>
             </div>
+              </div>
+            </>
           ) : (
             <>
-              <p 
-                className="text-xs sm:text-sm lg:text-base leading-relaxed break-words"
-                style={{ color: 'var(--text-primary)' }}
-              >
-                {message.content}
-              </p>
+              {/* Subtle gradient overlay for bot messages */}
+              <div className="absolute inset-0 opacity-5">
+                <div className="bg-gradient-to-br from-blue-400 via-purple-400 to-green-400 h-full" />
+              </div>
+              
+              <div className="relative z-10">
+                <p 
+                  className="text-xs sm:text-sm lg:text-base leading-relaxed break-words"
+                  style={{ color: 'var(--text-primary)' }}
+                >
+                  {message.content}
+                </p>
+                
+                <div className="flex items-center justify-between mt-1">
+                  <span className="text-xs opacity-60" style={{ color: 'var(--text-secondary)' }}>
+                    {getTimestamp()}
+                  </span>
+                  <span className="text-xs opacity-60">🤖</span>
+                </div>
+              </div>
               
               {message.audioUrl && (
                 <div 
-                  className="mt-2 sm:mt-3 pt-2 sm:pt-3 border-t"
+                  className="mt-2 sm:mt-3 pt-2 sm:pt-3 border-t relative z-10"
                   style={{ borderColor: 'var(--border-color)' }}
                 >
                   <button
                     type="button"
                     onClick={handlePlayAudio}
                     disabled={isLoading}
-                    className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1 sm:py-2 text-xs sm:text-sm rounded-lg transition-all duration-200 hover:scale-105 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1 sm:py-2 text-xs sm:text-sm rounded-lg transition-all duration-200 hover:scale-105 disabled:cursor-not-allowed disabled:opacity-50 backdrop-blur-sm"
                     style={{
-                      backgroundColor: hasError ? '#dc2626' : 'var(--accent-primary)',
+                      background: hasError 
+                        ? 'linear-gradient(135deg, #dc2626, #ef4444)' 
+                        : `linear-gradient(135deg, var(--accent-tertiary), #4ade80)`,
                       color: 'white'
                     }}
                   >

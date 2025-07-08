@@ -15,15 +15,15 @@ const IntroScreen: React.FC<IntroScreenProps> = ({ theme, onComplete }) => {
     {
       icon: <MapPin size={56} className="text-orange-500 drop-shadow-lg" />,
       title: "Welcome to Rahi.ai",
-      subtitle: "Your AI-powered travel companion for India",
-      description: "Discover the incredible diversity, rich culture, and timeless heritage of India through intelligent conversations.",
+      subtitle: "Your AI-powered travel companion for Maharashtra",
+      description: "Discover the incredible diversity, rich culture, and timeless heritage of Maharashtra through intelligent conversations.",
       gradient: "from-orange-500 via-red-500 to-pink-500"
     },
     {
       icon: <Globe size={56} className="text-blue-500 drop-shadow-lg" />,
-      title: "Explore India's Wonders",
+      title: "Explore Maharashtra's Wonders",
       subtitle: "From ancient monuments to vibrant festivals",
-      description: "Get personalized recommendations for destinations, local cuisine, hidden gems, and cultural experiences across the subcontinent.",
+      description: "Get personalized recommendations for destinations, local cuisine, hidden gems, and cultural experiences across Maharashtra.",
       gradient: "from-blue-500 via-purple-500 to-indigo-500"
     },
     {
@@ -36,8 +36,8 @@ const IntroScreen: React.FC<IntroScreenProps> = ({ theme, onComplete }) => {
     {
       icon: <Heart size={56} className="text-red-500 drop-shadow-lg animate-pulse" />,
       title: "Ready for Adventure?",
-      subtitle: "Start your magical journey through Incredible India",
-      description: "Let's explore the magic, mystery, and magnificence of India together. Your extraordinary adventure awaits! 🇮🇳",
+      subtitle: "Start your magical journey through Incredible Maharashtra",
+      description: "Let's explore the magic, mystery, and magnificence of Maharashtra together. Your extraordinary adventure awaits! 🏛️",
       gradient: "from-red-500 via-pink-500 to-rose-500"
     }
   ];
@@ -160,7 +160,7 @@ const IntroScreen: React.FC<IntroScreenProps> = ({ theme, onComplete }) => {
           </div>
           <div className="flex items-center justify-center gap-2 text-lg font-medium" style={{ color: 'var(--text-secondary)' }}>
             <Compass size={20} className="animate-spin-slow" />
-            <span>Your Magical Gateway to Incredible India</span>
+            <span>Your Magical Gateway to Incredible Maharashtra</span>
             <Compass size={20} className="animate-spin-slow" style={{ animationDirection: 'reverse' }} />
           </div>
         </div>
@@ -297,8 +297,8 @@ const IntroScreen: React.FC<IntroScreenProps> = ({ theme, onComplete }) => {
         {/* Enhanced Footer */}
         <div className="mt-12 text-base flex items-center justify-center gap-2" style={{ color: 'var(--text-secondary)' }}>
           <Star size={20} className="text-yellow-400 animate-pulse" />
-          <span>Powered by AI Magic • Experience Incredible India</span>
-          <span className="text-2xl">🇮🇳</span>
+          <span>Powered by AI Magic • Experience Incredible Maharashtra</span>
+          <span className="text-2xl">🏛️</span>
           <Star size={20} className="text-yellow-400 animate-pulse" />
         </div>
       </div>

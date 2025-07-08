@@ -235,7 +235,7 @@ const ChatBot: React.FC<ChatBotProps> = ({ theme, onThemeToggle }) => {
                 }}
               >
                 Rahi.ai
-              </h1>
+                Your magical AI companion for exploring Maharashtra's wonders
               <div className="relative">
                 <MapPin 
                   size={24} 
@@ -303,7 +303,7 @@ const ChatBot: React.FC<ChatBotProps> = ({ theme, onThemeToggle }) => {
                       style={{ color: 'var(--text-secondary)' }}
                     >
                       <Sparkles size={16} className="animate-pulse" />
-                      Ask me about India's destinations, culture, festivals, or travel tips...
+                      Ask me about Maharashtra's destinations, culture, festivals, or travel tips...
                       <Zap size={16} className="animate-pulse" />
                     </p>
                   </div>
@@ -392,7 +392,7 @@ const ChatBot: React.FC<ChatBotProps> = ({ theme, onThemeToggle }) => {
       {/* Enhanced Footer */}
       <div className="hidden lg:flex items-center justify-center text-xs lg:text-sm py-2 lg:py-3 gap-2 flex-shrink-0" style={{ color: 'var(--text-secondary)' }}>
         <Star size={16} className="text-yellow-400 animate-pulse" />
-        <span>Powered by AI Magic • Experience the wonders of Incredible India</span>
+        <span>Powered by AI Magic • Experience the wonders of Incredible Maharashtra</span>
         <span className="text-xl">🌟</span>
         <Star size={16} className="text-yellow-400 animate-pulse" />
       </div>
