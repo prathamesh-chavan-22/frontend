@@ -131,23 +131,41 @@
 
 /* Enhanced custom scrollbar with magical touches */
 .custom-scrollbar::-webkit-scrollbar {
-  width: 8px;
+  width: 12px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
   background: var(--bg-secondary);
-  border-radius: 4px;
+  border-radius: 6px;
+  margin: 4px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
   background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-  border-radius: 4px;
+  border-radius: 6px;
   transition: all 0.3s ease;
+  border: 2px solid var(--bg-secondary);
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(135deg, var(--accent-secondary), var(--accent-tertiary));
   box-shadow: 0 0 10px var(--accent-primary);
+}
+
+/* Firefox scrollbar styling */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-primary) var(--bg-secondary);
+}
+
+/* Smooth scrolling behavior */
+.scroll-smooth {
+  scroll-behavior: smooth;
+}
+
+/* Ensure scrollbar is always visible when content overflows */
+.custom-scrollbar {
+  overflow-y: scroll;
 }
 
 /* Enhanced mobile-first responsive design */
@@ -380,15 +398,6 @@ body {
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
-/* Magical text effects */
-.magical-text {
-  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary), var(--accent-tertiary));
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: gradientShift 4s ease infinite;
-}
 
 /* Enhanced button hover effects */
 .magical-button {

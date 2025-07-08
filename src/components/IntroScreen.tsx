@@ -138,11 +138,11 @@ const IntroScreen: React.FC<IntroScreenProps> = ({ theme, onComplete }) => {
               </div>
             </div>
             <h1 
-              className="text-6xl sm:text-7xl lg:text-8xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 animate-gradient"
+              className="text-6xl sm:text-7xl lg:text-8xl font-bold"
               style={{ 
                 fontFamily: 'Samarkan, serif',
                 textShadow: '4px 4px 8px var(--shadow-color)',
-                backgroundSize: '200% 200%'
+                color: 'var(--accent-primary)'
               }}
             >
               Rahi.ai
@@ -201,9 +201,9 @@ const IntroScreen: React.FC<IntroScreenProps> = ({ theme, onComplete }) => {
 
           {/* Enhanced Typography */}
           <h2 
-            className="text-4xl sm:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r"
+            className="text-4xl sm:text-5xl font-bold mb-4"
             style={{ 
-              backgroundImage: `linear-gradient(135deg, ${steps[currentStep].gradient.split(' ').join(', ')})`,
+              color: 'var(--accent-primary)',
               textShadow: '2px 2px 4px var(--shadow-color)'
             }}
           >

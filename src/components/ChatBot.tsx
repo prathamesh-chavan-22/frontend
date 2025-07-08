@@ -227,11 +227,11 @@ const ChatBot: React.FC<ChatBotProps> = ({ theme, onThemeToggle }) => {
                 <Sparkles size={12} className="absolute -top-1 -right-1 text-yellow-400 animate-pulse" />
               </div>
               <h1 
-                className="text-3xl sm:text-5xl lg:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 animate-gradient"
+                className="text-3xl sm:text-5xl lg:text-6xl font-bold"
                 style={{ 
                   fontFamily: 'Samarkan, serif',
                   textShadow: '3px 3px 6px var(--shadow-color)',
-                  backgroundSize: '200% 200%'
+                  color: 'var(--accent-primary)'
                 }}
               >
                 Rahi.ai
@@ -268,18 +268,18 @@ const ChatBot: React.FC<ChatBotProps> = ({ theme, onThemeToggle }) => {
 
           {/* Enhanced Chat Container */}
           <div 
-            className="flex-1 rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden transition-all duration-500 backdrop-blur-sm"
+            className="rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden transition-all duration-500 backdrop-blur-sm"
             style={{
               background: `linear-gradient(135deg, var(--bg-secondary), rgba(255,255,255,0.05))`,
               border: '2px solid var(--border-color)',
               boxShadow: '0 12px 40px var(--shadow-color)',
-              minHeight: '350px'
+              height: '500px'
             }}
           >
             {/* Chat Messages */}
             <div 
               ref={chatBoxRef}
-              className="h-full overflow-y-auto p-4 sm:p-6 space-y-4 sm:space-y-5 custom-scrollbar"
+              className="h-full overflow-y-auto p-4 sm:p-6 space-y-4 sm:space-y-5 custom-scrollbar scroll-smooth"
               style={{
                 background: `linear-gradient(to bottom, var(--bg-secondary), var(--bg-primary))`,
                 paddingBottom: '1.5rem'
@@ -292,7 +292,8 @@ const ChatBot: React.FC<ChatBotProps> = ({ theme, onThemeToggle }) => {
                     <div className="flex items-center justify-center gap-2 mb-3">
                       <Star size={20} className="text-yellow-400 animate-pulse" />
                       <p 
-                        className="text-xl sm:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-pink-500"
+                        className="text-xl sm:text-2xl font-bold"
+                        style={{ color: 'var(--accent-primary)' }}
                       >
                         Namaste! Welcome to Rahi.ai
                       </p>
