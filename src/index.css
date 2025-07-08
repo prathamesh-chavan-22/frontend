@@ -2,24 +2,47 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Samarkan&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-/* Fallback font loading */
-@font-face {
-  font-family: 'Samarkan';
-  src: url('https://fonts.googleapis.com/css2?family=Samarkan&display=swap');
-  font-display: swap;
+/* Modern font stack */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
-/* Enhanced magical animations */
+/* Smooth animations */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(40px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 
@@ -28,719 +51,240 @@
     opacity: 1;
   }
   50% {
-    opacity: 0.6;
+    opacity: 0.5;
   }
 }
 
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  33% {
-    transform: translateY(-10px) rotate(5deg);
-  }
-  66% {
-    transform: translateY(5px) rotate(-3deg);
-  }
+/* Animation utilities */
+.animate-in {
+  animation-duration: 0.3s;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  animation-fill-mode: both;
 }
 
-@keyframes gradientShift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+.slide-in-from-right {
+  animation-name: slideInFromRight;
 }
 
-@keyframes sparkle {
-  0%, 100% {
-    opacity: 0;
-    transform: scale(0.5) rotate(0deg);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1) rotate(180deg);
-  }
-}
-
-@keyframes magicalGlow {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(230, 81, 0, 0.3);
-  }
-  50% {
-    box-shadow: 0 0 40px rgba(230, 81, 0, 0.6);
-  }
-}
-
-/* Enhanced message bubble animations */
-@keyframes messageSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes typingDots {
-  0%, 60%, 100% {
-    transform: translateY(0);
-  }
-  30% {
-    transform: translateY(-10px);
-  }
-}
-
-@keyframes shimmer {
-  0% {
-    transform: translateX(-100%) skewX(-12deg);
-  }
-  100% {
-    transform: translateX(200%) skewX(-12deg);
-  }
-}
-
-@keyframes messageGlow {
-  0%, 100% {
-    box-shadow: 0 2px 8px var(--shadow-color);
-  }
-  50% {
-    box-shadow: 0 4px 16px var(--shadow-color), 0 0 20px rgba(230, 81, 0, 0.2);
-  }
+.slide-in-from-left {
+  animation-name: slideInFromLeft;
 }
 
 .fade-in-up {
-  animation: messageSlideIn 0.6s ease-out;
+  animation: fadeInUp 0.3s ease-out;
 }
 
-.animate-typing-dots {
-  animation: typingDots 1.4s ease-in-out infinite;
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
 }
 
-.animate-shimmer {
-  animation: shimmer 2s ease-in-out infinite;
+::-webkit-scrollbar-track {
+  background: transparent;
 }
 
-.animate-message-glow {
-  animation: messageGlow 3s ease-in-out infinite;
+::-webkit-scrollbar-thumb {
+  background: #e5e7eb;
+  border-radius: 4px;
 }
 
-.pulse-animation {
-  animation: pulse 2.5s infinite;
+::-webkit-scrollbar-thumb:hover {
+  background: #d1d5db;
 }
 
-.animate-float {
-  animation: float 6s ease-in-out infinite;
+.dark ::-webkit-scrollbar-thumb {
+  background: #374151;
 }
 
-.animate-gradient {
-  animation: gradientShift 4s ease infinite;
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #4b5563;
 }
 
-.animate-sparkle {
-  animation: sparkle 2s ease-in-out infinite;
-}
-
-.animate-magical-glow {
-  animation: magicalGlow 3s ease-in-out infinite;
-}
-
-.animate-spin-slow {
-  animation: spin 3s linear infinite;
-}
-
-/* Enhanced chat message styling */
-.chat-message {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  contain: layout style paint;
-}
-
-.chat-message:hover {
-  transform: translateY(-1px);
-}
-
-/* User message specific styling */
-.user-message {
-  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-  position: relative;
-  overflow: hidden;
-}
-
-.user-message::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.6s ease;
-}
-
-.user-message:hover::before {
-  left: 100%;
-}
-
-/* Bot message specific styling */
-.bot-message {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  position: relative;
-  overflow: hidden;
-}
-
-.bot-message::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, rgba(100, 181, 246, 0.05), rgba(129, 199, 132, 0.05));
-  pointer-events: none;
-}
-
-/* Typing indicator styling */
-.typing-indicator {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.typing-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background-color: var(--accent-primary);
-  animation: typingDots 1.4s ease-in-out infinite;
-}
-
-.typing-dot:nth-child(2) {
-  animation-delay: 0.2s;
-}
-
-.typing-dot:nth-child(3) {
-  animation-delay: 0.4s;
-}
-
-/* Timestamp styling */
-.message-timestamp {
-  font-size: 0.75rem;
-  opacity: 0.6;
-  transition: opacity 0.3s ease;
-}
-
-.chat-message:hover .message-timestamp {
-  opacity: 0.9;
-}
-
-/* Audio button enhancements */
-.audio-button {
-  background: linear-gradient(135deg, var(--accent-tertiary), #4ade80);
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.audio-button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-  transition: left 0.5s ease;
-}
-
-.audio-button:hover::before {
-  left: 100%;
-}
-
-.audio-button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
-}
-
-/* Enhanced theme variables with magical touches */
-:root {
-  --bg-primary: #fff8e1;
-  --bg-secondary: #ffffff;
-  --text-primary: #4e342e;
-  --text-secondary: #6d4c41;
-  --accent-primary: #e65100;
-  --accent-secondary: #1565c0;
-  --accent-tertiary: #2e7d32;
-  --border-color: #d7ccc8;
-  --shadow-color: rgba(78, 52, 46, 0.15);
-}
-
-[data-theme="dark"] {
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #2d2d2d;
-  --text-primary: #f5f5f5;
-  --text-secondary: #e0e0e0;
-  --accent-primary: #ffb300;
-  --accent-secondary: #64b5f6;
-  --accent-tertiary: #81c784;
-  --border-color: #424242;
-  --shadow-color: rgba(0, 0, 0, 0.4);
-}
-
-/* Enhanced responsive chat layout */
-@media (max-width: 640px) {
-  .chat-message {
-    margin: 0.5rem 0;
-  }
-  
-  .user-message,
-  .bot-message {
-    max-width: 85%;
-  }
-  
-  .message-timestamp {
-    font-size: 0.7rem;
-  }
-}
-
-@media (min-width: 641px) and (max-width: 1024px) {
-  .chat-message {
-    margin: 0.75rem 0;
-  }
-  
-  .user-message,
-  .bot-message {
-    max-width: 75%;
-  }
-}
-
-@media (min-width: 1025px) {
-  .chat-message {
-    margin: 1rem 0;
-  }
-  
-  .user-message,
-  .bot-message {
-    max-width: 65%;
-  }
-}
-
-/* Enhanced custom scrollbar with magical touches */
-.custom-scrollbar::-webkit-scrollbar {
-  width: 12px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: var(--bg-secondary);
-  border-radius: 6px;
-  margin: 4px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-  border-radius: 6px;
-  transition: all 0.3s ease;
-  border: 2px solid var(--bg-secondary);
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, var(--accent-secondary), var(--accent-tertiary));
-  box-shadow: 0 0 10px var(--accent-primary);
-}
-
-/* Firefox scrollbar styling */
-.custom-scrollbar {
+/* Firefox scrollbar */
+* {
   scrollbar-width: thin;
-  scrollbar-color: var(--accent-primary) var(--bg-secondary);
+  scrollbar-color: #e5e7eb transparent;
 }
 
-/* Smooth scrolling behavior */
+.dark * {
+  scrollbar-color: #374151 transparent;
+}
+
+/* Smooth scrolling */
 .scroll-smooth {
   scroll-behavior: smooth;
 }
 
-/* Ensure scrollbar is always visible when content overflows */
-.custom-scrollbar {
-  overflow-y: scroll;
+/* Focus styles */
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid #f97316;
+  outline-offset: 2px;
 }
 
-/* Enhanced mobile-first responsive design */
-body {
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
-  max-height: 100vh;
-  overflow-x: hidden;
-  background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-/* Prevent horizontal scroll on mobile */
-* {
-  box-sizing: border-box;
-}
-
-/* Mobile viewport fixes with magical enhancements */
-@supports (-webkit-touch-callout: none) {
-  .min-h-screen {
-    min-height: -webkit-fill-available;
-    max-height: -webkit-fill-available;
-  }
-}
-
-/* Enhanced mobile layout */
+/* Mobile optimizations */
 @media (max-width: 640px) {
-  .min-h-screen {
-    min-height: 100vh;
-    max-height: 100vh;
-    min-height: -webkit-fill-available;
-    max-height: -webkit-fill-available;
-  }
-  
-  input[type="text"], 
-  input[type="email"], 
-  input[type="password"], 
-  textarea {
-    font-size: 16px;
-  }
-  
-  button {
-    min-height: 44px;
-    min-width: 44px;
-  }
-  
-  button {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-  }
-  
-  .custom-scrollbar {
-    -webkit-overflow-scrolling: touch;
-  }
-}
-
-/* Enhanced responsive breakpoints */
-@media (max-width: 480px) {
-  .custom-scrollbar::-webkit-scrollbar {
-    width: 8px;
-  }
-  
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-    border: 1px solid var(--bg-secondary);
-  }
-}
-
-/* Enhanced tablet optimizations */
-@media (min-width: 641px) and (max-width: 1024px) {
   body {
-    max-height: 100vh;
-    overflow: hidden;
-  }
-}
-
-/* Enhanced desktop optimizations */
-@media (min-width: 1025px) {
-  body {
-    max-height: 100vh;
-    overflow: hidden;
-  }
-}
-
-/* Prevent content overflow on all screen sizes */
-.overflow-container {
-  max-width: 100vw;
-  max-height: 100vh;
-  overflow: hidden;
-}
-
-/* Enhanced container constraints */
-.chat-main-container {
-  max-width: 100%;
-  max-height: 100%;
-  overflow: hidden;
-}
-
-/* Magical button accessibility */
-button:focus-visible {
-  outline: 3px solid var(--accent-primary);
-  outline-offset: 3px;
-  box-shadow: 0 0 20px var(--accent-primary);
-}
-
-/* Enhanced hover states for non-touch devices */
-@media (hover: hover) and (pointer: fine) {
-  .interactive-element:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px var(--shadow-color);
-  }
-}
-
-/* Magical transitions for all interactive elements */
-.interactive-element {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Prevent layout shift during loading */
-.chat-message {
-  contain: layout;
-}
-
-/* Optimize rendering performance */
-.chat-container {
-  will-change: scroll-position;
-  transform: translateZ(0);
-}
-
-/* Enhanced mobile keyboard handling */
-@media (max-width: 640px) {
-  .keyboard-adjust {
-    height: calc(100vh - env(keyboard-inset-height, 0px));
-    max-height: calc(100vh - env(keyboard-inset-height, 0px));
-  }
-}
-
-/* Improved viewport handling for different screen sizes */
-@media (max-width: 768px) {
-  .min-h-screen {
-    min-height: 100dvh;
-    max-height: 100dvh;
-  }
-}
-
-@media (min-width: 769px) {
-  .min-h-screen {
-    min-height: 100vh;
-    max-height: 100vh;
-  }
-}
-
-/* Prevent overscroll bounce on iOS */
-body {
-  overscroll-behavior: none;
-}
-
-/* Improve text rendering */
-body {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-}
-
-/* Enhanced intro screen animations */
-.intro-step {
-  animation: fadeInUp 1s ease-out;
-}
-
-/* Magical gradient backgrounds */
-.intro-gradient {
-  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary), var(--accent-tertiary));
-  background-size: 300% 300%;
-  animation: gradientShift 5s ease infinite;
-}
-
-/* Enhanced page transitions */
-.page-transition {
-  transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
-}
-
-.page-enter {
-  opacity: 0;
-  transform: translateY(30px) scale(0.95);
-}
-
-.page-enter-active {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-
-.page-exit {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-
-.page-exit-active {
-  opacity: 0;
-  transform: translateY(-30px) scale(0.95);
-}
-
-/* Magical backdrop blur effects */
-.backdrop-blur-sm {
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-}
-
-.backdrop-blur-md {
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-
-/* Enhanced focus ring for better accessibility */
-.focus-ring:focus {
-  outline: none;
-  box-shadow: 0 0 0 2px var(--accent-primary), 0 0 12px var(--accent-primary);
-}
-
-/* Responsive text scaling */
-@media (max-width: 480px) {
-  html {
     font-size: 14px;
   }
-}
-
-@media (min-width: 481px) and (max-width: 768px) {
-  html {
-    font-size: 15px;
-  }
-}
-
-@media (min-width: 769px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-/* Magical loading animations */
-@keyframes magicalSpin {
-  0% {
-    transform: rotate(0deg) scale(1);
-  }
-  50% {
-    transform: rotate(180deg) scale(1.1);
-  }
-  100% {
-    transform: rotate(360deg) scale(1);
-  }
-}
-
-.animate-magical-spin {
-  animation: magicalSpin 2s ease-in-out infinite;
-}
-
-/* Enhanced glass morphism effects */
-.glass-effect {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-[data-theme="dark"] .glass-effect {
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* Magical particle effects */
-.particle {
-  position: absolute;
-  pointer-events: none;
-  opacity: 0.7;
-  animation: float 8s ease-in-out infinite;
-}
-
-/* Enhanced shadow effects */
-.magical-shadow {
-  box-shadow: 
-    0 4px 20px var(--shadow-color),
-    0 0 40px rgba(230, 81, 0, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
-}
-
-[data-theme="dark"] .magical-shadow {
-  box-shadow: 
-    0 4px 20px var(--shadow-color),
-    0 0 40px rgba(255, 179, 0, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-}
-
-
-/* Enhanced button hover effects */
-.magical-button {
-  position: relative;
-  overflow: hidden;
-  transition: all 0.3s ease;
-}
-
-.magical-button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.5s ease;
-}
-
-.magical-button:hover::before {
-  left: 100%;
-}
-
-/* Responsive magical enhancements */
-@media (max-width: 768px) {
-  .magical-shadow {
-    box-shadow: 
-      0 2px 10px var(--shadow-color),
-      0 0 20px rgba(230, 81, 0, 0.05);
-  }
-}
-
-/* Performance optimizations */
-.gpu-accelerated {
-  transform: translateZ(0);
-  will-change: transform;
-}
-
-/* Accessibility improvements */
-@media (prefers-reduced-motion: reduce) {
-  .animate-float,
-  .animate-gradient,
-  .animate-sparkle,
-  .animate-magical-glow,
-  .pulse-animation {
-    animation: none;
+  
+  input[type="text"] {
+    font-size: 16px; /* Prevents zoom on iOS */
   }
   
-  /* Remove bouncing animations for emojis */
-  .animate-bounce {
-    animation: none;
+  button {
+    min-height: 44px; /* Touch target size */
   }
+}
+
+/* Prevent horizontal scroll */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
 }
 
 /* High contrast mode support */
 @media (prefers-contrast: high) {
-  :root {
-    --border-color: #000000;
-    --shadow-color: rgba(0, 0, 0, 0.8);
+  .bg-gray-50 {
+    background-color: white;
   }
   
-  [data-theme="dark"] {
-    --border-color: #ffffff;
-    --shadow-color: rgba(255, 255, 255, 0.8);
+  .dark .bg-gray-900 {
+    background-color: black;
+  }
+  
+  .border-gray-200 {
+    border-color: #000;
+  }
+  
+  .dark .border-gray-700 {
+    border-color: #fff;
   }
 }
 
-/* Remove bouncing animations from emojis */
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .animate-in,
+  .fade-in-up,
+  .animate-bounce,
+  .animate-spin,
+  .animate-pulse {
+    animation: none;
+  }
+  
+  .transition-all,
+  .transition-colors,
+  .transition-transform {
+    transition: none;
+  }
+}
+
+/* Loading state improvements */
 .animate-bounce {
-  animation: none;
+  animation: bounce 1s infinite;
 }
 
-/* Static emoji styles */
-.emoji-static {
-  display: inline-block;
-  transition: transform 0.2s ease;
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-25%);
+  }
 }
 
-.emoji-static:hover {
-  transform: scale(1.1);
+/* Button hover effects */
+button:not(:disabled):hover {
+  transform: translateY(-1px);
+}
+
+button:not(:disabled):active {
+  transform: translateY(0);
+}
+
+/* Message bubble improvements */
+.message-bubble {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+/* Gradient backgrounds */
+.gradient-orange {
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+}
+
+.gradient-green {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+/* Error states */
+.error-state {
+  background-color: #fef2f2;
+  border-color: #fecaca;
+  color: #dc2626;
+}
+
+.dark .error-state {
+  background-color: #7f1d1d;
+  border-color: #991b1b;
+  color: #fca5a5;
+}
+
+/* Success states */
+.success-state {
+  background-color: #f0fdf4;
+  border-color: #bbf7d0;
+  color: #16a34a;
+}
+
+.dark .success-state {
+  background-color: #14532d;
+  border-color: #166534;
+  color: #86efac;
+}
+
+/* Loading skeleton */
+.skeleton {
+  background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+.dark .skeleton {
+  background: linear-gradient(90deg, #374151 25%, #4b5563 50%, #374151 75%);
+  background-size: 200% 100%;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Typography improvements */
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Container queries support */
+@container (max-width: 640px) {
+  .container-sm\:text-sm {
+    font-size: 0.875rem;
+  }
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    background: white !important;
+    color: black !important;
+  }
 }
