@@ -235,7 +235,7 @@ const ChatBot: React.FC<ChatBotProps> = ({ theme, onThemeToggle }) => {
                 }}
               >
                 Rahi.ai
-                Your magical AI companion for exploring Maharashtra's wonders
+              </h1>
               <div className="relative">
                 <MapPin 
                   size={24} 
