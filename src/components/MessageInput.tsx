@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Send } from 'lucide-react';
+import { Send, Sparkles } from 'lucide-react';
 
 interface MessageInputProps {
   onSendMessage: (message: string) => void;
@@ -27,29 +27,50 @@ const MessageInput: React.FC<MessageInputProps> = ({ onSendMessage, disabled = f
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex-1 flex gap-2">
+    <form onSubmit={handleSubmit} className="flex-1 flex gap-3">
       <div className="flex-1 relative">
         <input
           type="text"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder={disabled ? "Processing..." : "Ask about Maharashtra's wonders..."}
+          placeholder={disabled ? "Processing magic..." : "Ask about India's wonders..."}
           disabled={disabled}
-          className="w-full px-4 py-3 pr-12 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 text-sm"
+          className="w-full px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base rounded-xl sm:rounded-2xl focus:outline-none focus:ring-3 transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50 backdrop-blur-sm"
+          style={{
+            backgroundColor: disabled ? 'var(--border-color)' : 'var(--bg-secondary)',
+            border: '2px solid var(--border-color)',
+            color: disabled ? 'var(--text-secondary)' : 'var(--text-primary)',
+            boxShadow: '0 4px 16px var(--shadow-color)',
+            focusRingColor: 'var(--accent-primary)'
+          }}
         />
-        {inputValue.trim() && !disabled && (
-          <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-            <div className="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></div>
-          </div>
+        {!disabled && (
+          <Sparkles 
+            size={16} 
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-yellow-400 animate-pulse opacity-50" 
+          />
         )}
       </div>
       <button
         type="submit"
         disabled={!inputValue.trim() || disabled}
-        className="px-4 py-3 bg-gradient-to-br from-orange-500 to-orange-600 text-white rounded-xl hover:from-orange-600 hover:to-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 hover:scale-105 active:scale-95 shadow-sm"
+        className="px-4 sm:px-8 py-3 sm:py-4 rounded-xl sm:rounded-2xl transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50 flex items-center gap-2 sm:gap-3 font-bold hover:scale-105 active:scale-95 min-w-0 backdrop-blur-sm"
+        style={{
+          background: (inputValue.trim() && !disabled)
+            ? `linear-gradient(135deg, var(--accent-secondary), var(--accent-primary))` 
+            : 'var(--border-color)',
+          color: (inputValue.trim() && !disabled) ? 'white' : 'var(--text-secondary)',
+          boxShadow: (inputValue.trim() && !disabled) ? '0 4px 16px var(--shadow-color)' : 'none'
+        }}
       >
-        <Send size={18} />
+        <Send size={18} className="sm:w-[20px] sm:h-[20px] drop-shadow-sm" />
+        <span className="hidden sm:inline text-sm sm:text-base">
+          {disabled ? 'Wait...' : 'Send'}
+        </span>
+        {(inputValue.trim() && !disabled) && (
+          <Sparkles size={14} className="animate-pulse" />
+        )}
       </button>
     </form>
   );

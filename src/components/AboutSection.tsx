@@ -59,7 +59,7 @@ const AboutSection: React.FC = () => {
                 className="leading-relaxed text-lg"
                 style={{ color: 'var(--text-primary)' }}
               >
-                This <strong>AI-powered magical assistant</strong> helps travelers explore <strong>Maharashtra's incredible destinations, rich culture, and heritage sites</strong> by providing real-time information using advanced AI and Retrieval-Augmented Generation (RAG) technology.
+                This <strong>AI-powered magical assistant</strong> helps travelers explore <strong>India's incredible destinations, rich culture, and heritage sites</strong> by providing real-time information using advanced AI and Retrieval-Augmented Generation (RAG) technology.
               </p>
             </div>
             
@@ -69,7 +69,7 @@ const AboutSection: React.FC = () => {
                 className="leading-relaxed text-lg"
                 style={{ color: 'var(--text-primary)' }}
               >
-                🏛️ Get enchanting information about <strong>monuments, temples, festivals, local cuisine, and travel tips</strong> across Maharashtra with accurate, spoken responses—your personal digital guide with a touch of magic!
+                🏛️ Get enchanting information about <strong>monuments, temples, festivals, local cuisine, and travel tips</strong> with accurate, spoken responses—your personal digital guide with a touch of magic!
               </p>
             </div>
             
@@ -93,7 +93,7 @@ const AboutSection: React.FC = () => {
               <ul className="space-y-3 text-base" style={{ color: 'var(--text-secondary)' }}>
                 <li className="flex items-start gap-3 p-2 rounded-lg transition-colors duration-300" style={{ backgroundColor: 'rgba(255,255,255,0.05)' }}>
                   <span style={{ color: 'var(--accent-secondary)' }}>💬</span>
-                  <span>Type your question about Maharashtra and press <strong>Enter</strong> or click <strong>Send</strong> to begin the magic</span>
+                  <span>Type your question about India and press <strong>Enter</strong> or click <strong>Send</strong> to begin the magic</span>
                 </li>
                 <li className="flex items-start gap-3 p-2 rounded-lg transition-colors duration-300" style={{ backgroundColor: 'rgba(255,255,255,0.05)' }}>
                   <span style={{ color: 'var(--accent-tertiary)' }}>🎤</span>
@@ -105,7 +105,7 @@ const AboutSection: React.FC = () => {
                 </li>
                 <li className="flex items-start gap-3 p-2 rounded-lg transition-colors duration-300" style={{ backgroundColor: 'rgba(255,255,255,0.05)' }}>
                   <span style={{ color: 'var(--accent-secondary)' }}>🌟</span>
-                  <span>Ask about destinations, culture, food, festivals, travel tips, and discover Maharashtra's hidden magical treasures!</span>
+                  <span>Ask about destinations, culture, food, festivals, travel tips, and discover India's hidden magical treasures!</span>
                 </li>
               </ul>
             </div>

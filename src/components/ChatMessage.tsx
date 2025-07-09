@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Play, Pause, AlertCircle, Volume2 } from 'lucide-react';
+import { Play, Pause, Volume2, VolumeX } from 'lucide-react';
 
 interface Message {
   id: string;
@@ -20,12 +20,8 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, autoPlay }) => {
   const [hasError, setHasError] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  const getTimestamp = () => {
-    const now = new Date();
-    return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  };
-
   useEffect(() => {
+    // Auto-play logic for bot messages with audio
     if (message.audioUrl && autoPlay && message.sender === 'bot' && !message.isLoading) {
       const timer = setTimeout(() => {
         handlePlayAudio();
@@ -35,6 +31,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, autoPlay }) => {
   }, [message.audioUrl, autoPlay, message.sender, message.isLoading]);
 
   useEffect(() => {
+    // Cleanup audio when component unmounts
     return () => {
       if (audioRef.current) {
         audioRef.current.pause();
@@ -45,9 +42,13 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, autoPlay }) => {
   }, []);
 
   const handlePlayAudio = async () => {
-    if (!message.audioUrl) return;
+    if (!message.audioUrl) {
+      console.warn('No audio URL provided');
+      return;
+    }
 
     try {
+      // If audio is currently playing, pause it
       if (audioRef.current && !audioRef.current.paused) {
         audioRef.current.pause();
         setIsPlaying(false);
@@ -57,109 +58,153 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, autoPlay }) => {
       setIsLoading(true);
       setHasError(false);
 
+      // Create new audio element if needed
       if (!audioRef.current) {
         audioRef.current = new Audio();
         
-        audioRef.current.oncanplay = () => setIsLoading(false);
+        audioRef.current.onloadstart = () => {
+          console.log('Audio loading started');
+          setIsLoading(true);
+        };
+        
+        audioRef.current.oncanplay = () => {
+          console.log('Audio can play');
+          setIsLoading(false);
+        };
+        
         audioRef.current.onplay = () => {
+          console.log('Audio started playing');
           setIsPlaying(true);
           setIsLoading(false);
         };
-        audioRef.current.onpause = () => setIsPlaying(false);
-        audioRef.current.onended = () => setIsPlaying(false);
-        audioRef.current.onerror = () => {
+        
+        audioRef.current.onpause = () => {
+          console.log('Audio paused');
+          setIsPlaying(false);
+        };
+        
+        audioRef.current.onended = () => {
+          console.log('Audio ended');
+          setIsPlaying(false);
+        };
+        
+        audioRef.current.onerror = (e) => {
+          console.error('Audio error:', e);
           setHasError(true);
           setIsPlaying(false);
           setIsLoading(false);
         };
       }
 
+      // Set source and play
       if (audioRef.current.src !== message.audioUrl) {
         audioRef.current.src = message.audioUrl;
       }
 
       await audioRef.current.play();
+      
     } catch (error) {
+      console.error('Error playing audio:', error);
       setHasError(true);
       setIsPlaying(false);
       setIsLoading(false);
+      
+      // Show user-friendly error message
+      if (error instanceof DOMException) {
+        if (error.name === 'NotAllowedError') {
+          alert('Audio playback blocked. Please enable audio autoplay or click play manually.');
+        } else if (error.name === 'NotSupportedError') {
+          alert('Audio format not supported by your browser.');
+        } else {
+          alert('Unable to play audio. Please try again.');
+        }
+      }
     }
   };
 
   if (message.sender === 'user') {
     return (
-      <div className="flex justify-end animate-in slide-in-from-right duration-300">
-        <div className="max-w-xs sm:max-w-md lg:max-w-lg xl:max-w-xl">
-          <div className="bg-gradient-to-br from-orange-500 to-orange-600 text-white px-4 py-3 rounded-2xl rounded-br-md shadow-sm">
-            <p className="text-sm leading-relaxed break-words">{message.content}</p>
-            <div className="flex justify-end mt-2">
-              <span className="text-xs opacity-75">{getTimestamp()}</span>
-            </div>
-          </div>
+      <div className="flex justify-end fade-in-up">
+        <div 
+          className="max-w-xs sm:max-w-md lg:max-w-lg px-4 py-3 rounded-2xl rounded-br-sm shadow-lg transition-all duration-300"
+          style={{
+            background: `linear-gradient(135deg, var(--accent-secondary), var(--accent-primary))`,
+            color: 'white'
+          }}
+        >
+          <p className="text-sm sm:text-base break-words">{message.content}</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="flex justify-start animate-in slide-in-from-left duration-300">
-      <div className="max-w-xs sm:max-w-md lg:max-w-lg xl:max-w-xl">
-        <div className="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 px-4 py-3 rounded-2xl rounded-bl-md shadow-sm">
+    <div className="flex justify-start fade-in-up">
+      <div className="max-w-xs sm:max-w-md lg:max-w-lg">
+        <div 
+          className="px-4 py-3 rounded-2xl rounded-bl-sm shadow-lg border transition-all duration-300"
+          style={{
+            backgroundColor: 'var(--bg-secondary)',
+            borderColor: 'var(--border-color)',
+            boxShadow: '0 2px 8px var(--shadow-color)'
+          }}
+        >
           {message.isLoading ? (
-            <div className="flex items-center gap-3 text-gray-600 dark:text-gray-400">
-              <div className="flex gap-1">
-                <div className="w-2 h-2 bg-orange-500 rounded-full animate-bounce"></div>
-                <div className="w-2 h-2 bg-orange-500 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                <div className="w-2 h-2 bg-orange-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-              </div>
+            <div className="flex items-center gap-2" style={{ color: 'var(--accent-primary)' }}>
+              <div 
+                className="animate-spin w-4 h-4 border-2 border-t-transparent rounded-full"
+                style={{ borderColor: 'var(--accent-primary)' }}
+              ></div>
               <span className="text-sm">Thinking...</span>
             </div>
           ) : (
             <>
-              <p className="text-sm leading-relaxed break-words text-gray-900 dark:text-gray-100 mb-2">
+              <p 
+                className="text-sm sm:text-base leading-relaxed break-words"
+                style={{ color: 'var(--text-primary)' }}
+              >
                 {message.content}
               </p>
               
-              <div className="flex items-center justify-between">
-                <span className="text-xs text-gray-500 dark:text-gray-400">
-                  {getTimestamp()}
-                </span>
-                
-                {message.audioUrl && (
+              {message.audioUrl && (
+                <div 
+                  className="mt-3 pt-3 border-t"
+                  style={{ borderColor: 'var(--border-color)' }}
+                >
                   <button
                     type="button"
                     onClick={handlePlayAudio}
                     disabled={isLoading}
-                    className={`flex items-center gap-1.5 px-2.5 py-1.5 text-xs rounded-lg font-medium transition-all duration-200 hover:scale-105 disabled:opacity-50 ${
-                      hasError 
-                        ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400' 
-                        : 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 hover:bg-green-200 dark:hover:bg-green-900/50'
-                    }`}
+                    className="flex items-center gap-2 px-3 py-2 text-sm rounded-lg transition-all duration-200 hover:scale-105 disabled:cursor-not-allowed disabled:opacity-50"
+                    style={{
+                      backgroundColor: hasError ? '#dc2626' : 'var(--accent-primary)',
+                      color: 'white'
+                    }}
                   >
                     {isLoading ? (
                       <>
-                        <div className="w-3 h-3 border border-current border-t-transparent rounded-full animate-spin"></div>
-                        <span>Loading</span>
+                        <div className="animate-spin w-4 h-4 border-2 border-t-transparent rounded-full border-white"></div>
+                        <span>Loading...</span>
                       </>
                     ) : hasError ? (
                       <>
-                        <AlertCircle size={12} />
-                        <span>Error</span>
+                        <VolumeX size={16} />
+                        <span>Audio Error</span>
                       </>
                     ) : isPlaying ? (
                       <>
-                        <Pause size={12} />
+                        <Pause size={16} />
                         <span>Pause</span>
                       </>
                     ) : (
                       <>
-                        <Volume2 size={12} />
-                        <span>Play</span>
+                        <Play size={16} />
+                        <span>Play Audio</span>
                       </>
                     )}
                   </button>
-                )}
-              </div>
+                </div>
+              )}
             </>
           )}
         </div>
